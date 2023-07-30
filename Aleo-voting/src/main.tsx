@@ -1,4 +1,3 @@
-import './style.css'
 import React from 'react'
 import { PuzzleWalletProvider, PuzzleWeb3Modal } from '@puzzlehq/sdk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
