@@ -1,0 +1,156 @@
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-image {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 15%;
+    height: 15%;
+}
+
+.jar-image {
+    position: absolute;
+    top: 15%;
+    height: 70%;
+    width: 45%;
+}
+
+.main-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 65%;
+    width: 35%;
+    left: 10%;
+    top: 20%;
+}
+
+.sub-container-one {
+    position: relative;
+    top: 12%;
+    width: 95%;
+    height: 45%;
+    text-align: left;
+}
+
+.sub-container-one h1{
+    font-size: 50px;
+    font-weight: 800;
+}
+
+.sub-container-one h3 {
+    font-weight: 125;
+    font-size: 25px;
+    color: rgb(75, 74, 74);
+}
+
+.sub-container-two {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 40%;
+    width: 95%;
+    height: 20%;
+}
+
+.wallet-button {
+    position: relative;
+    width: 45%;
+    height: 60%;
+    margin-right: 8%;
+}
+
+.learn-more {
+    position: relative;
+    width: 45%;
+    height: 60%;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: white;
+    border: 2px solid rgb(107, 87, 255);
+    color:rgb(107, 87, 255);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.learn-more:hover {
+  color: white;
+  background-color: rgb(107, 87, 255);
+}
+
+.popup-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 2px solid rgb(107, 87, 255);
+  }
+
+  .close-window {
+    position: absolute;
+    width: 8%;
+    height: 8%;
+    left: 92%;
+    top: 2%;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+    background-color: white;
+    border: 0px;
+  }
+
+  .power-container {
+    position: relative;
+    display: flex;
+    top: -11%;
+    left: 38%;
+    height: 20%;
+    width: 30%;
+  }
+
+  .power-container h3 {
+    color:rgb(107, 87, 255);
+    font-weight: lighter;
+    font-size: 25px;
+  }
+
+  .sideImage {
+    position: relative;
+    width: 50%;
+    left: 7%;
+    top: 35%;
+    height: 100%;
+  }
+
+  .paragraph-container {
+    position: relative;
+    width: 70%;
+    height: 50%;
+    top: -10%;
+    left: 15%;
+    text-align: center;
+  }
+
+  .paragraph-container p {
+    
+    color:  rgb(75, 74, 74);
+    font-size: 30px;
+    font-weight: 300;
+
+  }

@@ -1,0 +1,21 @@
+.wallet-button-connect {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(107, 87, 255);
+    border: 2px solid rgb(107, 87, 255);
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.wallet-button-connect:hover {
+    background-color: white;
+    color: rgb(107, 87, 255);
+}
