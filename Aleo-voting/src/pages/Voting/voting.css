@@ -1,0 +1,88 @@
+.voting-main-container {
+    position: absolute;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: #EFEEFF;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.town-vote-icon {
+    position: absolute;
+    width:10%;
+    height: 10%;
+    top: 3%;
+    left: 5%;
+}
+
+.left-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15%;
+    height: 75%;
+    width: 15%;
+    left: 10%;
+    top: 25%;
+}
+.left-container img {
+    position: relative;
+    height: 30%;
+    width: 80%;
+}
+.left-container img:hover {
+    box-shadow: 0 2px 4px rgb(107, 87, 255);
+}
+
+.right-container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15%;
+    height: 75%;
+    width: 15%;
+    left: 75%;
+    top: 25%;
+}
+
+.right-container img {
+    position: relative;
+    height: 30%;
+    width: 80%;
+}
+
+.right-container img:hover {
+    box-shadow: 0 2px 4px rgb(107, 87, 255);
+}
+.town-map-png {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    height: 65%;
+}
+
+.welcome-message {
+    position: absolute;
+    font-size: 37px;
+    color: rgb(75, 74, 74);
+    font-weight: 325;
+    top: 10%;
+    left:25%;
+    text-align: center;
+}
+
+.address-place {
+    position: absolute;
+    color:rgb(107, 87, 255);
+    font-weight: 200;
+    font-size: 18px;
+    left: 55%;
+    z-index: 100;
+    text-align: center;
+}

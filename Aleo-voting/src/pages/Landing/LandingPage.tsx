@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import React, { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './landing.css';
 import 'typeface-montserrat';
 import { PuzzleWalletProvider, PuzzleWeb3Modal, useAccount, useConnect } from '@puzzlehq/sdk';
@@ -9,6 +10,7 @@ const LandingPage: FC = () => {
   const { account } = useAccount();
   const [popupOpen, setPopupOpen] = useState(false);
   const [userAddress, setUserAddress] = useState("");
+  const navigate = useNavigate();
 
   const handleLearnMoreClick = () => {
     setPopupOpen(true);
@@ -17,16 +19,20 @@ const LandingPage: FC = () => {
   const disconnectClick = () => {
     setUserAddress("");
   };
+
   const handleWalletClick = async () => {
-    if(userAddress == ""){
+    if (userAddress === '') {
       await connect();
       if (account?.address) {
         setUserAddress(account.address);
+        localStorage.setItem('userAddress', account.address);
       }
     } else {
       disconnectClick();
-    }  
-  }
+      localStorage.removeItem(userAddress);
+    }
+    navigate('/voting');
+  };
 
   const closeWindow = () => {
     setPopupOpen(false);
@@ -38,13 +44,6 @@ const LandingPage: FC = () => {
         <div className='background'>
           <img src='./package-lock.jpeg' alt='logo' className='logo-image' />
           <img src='./collection-jar.jpg' alt='jar' className='jar-image' />
-          {userAddress && 
-              <h1 className='address-h1'
-                style={{
-                  fontFamily: 'Montserrat, sans-serif'
-                }}
-              >{userAddress}</h1>
-            }
           <div className='main-container'>
             <div className='sub-container-one'>
               <h1 style={{ fontFamily: 'Montserrat, sans-serif' }}>

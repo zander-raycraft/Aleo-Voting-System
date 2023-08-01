@@ -14,7 +14,7 @@ root.render(
     <PuzzleWalletProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/*' element={<LandingPage />} />
+          <Route path='/' element={<LandingPage />} />
           <Route path='/voting' element={<VotingPage />} />
         </Routes>
       </BrowserRouter>

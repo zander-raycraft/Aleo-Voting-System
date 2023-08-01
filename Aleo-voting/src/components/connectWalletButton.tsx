@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./connectWallet.css";
-import { useConnect } from '@puzzlehq/sdk';
+import { useConnect} from '@puzzlehq/sdk';
 
 const WalletLinkButton: React.FC = () => {
 
