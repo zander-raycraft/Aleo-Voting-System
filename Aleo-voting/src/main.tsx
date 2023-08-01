@@ -1,28 +1,23 @@
 import React from 'react'
+import ReactDOM from 'react-dom/client';
 import { PuzzleWalletProvider, PuzzleWeb3Modal } from '@puzzlehq/sdk';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from "./pages/Landing/LandingPage.tsx"
+import VotingPage from './pages/Voting/voting.tsx';
 
-function App() {
-  return (
-    <>
-      <PuzzleWalletProvider>
-        <div className="App">
-          <Router>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-            </Routes>
-        </Router>
-        </div>
-      </PuzzleWalletProvider>
-      <PuzzleWeb3Modal 
-        dAppName={'Aleo-Voting'} 
-        dAppDescription={'ZK Voting system on the aleo blockchain'} 
-        dAppUrl={''} 
-        dAppIconURL={''}/>
-    </>
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
-  );
-}
-
-export default App;
+root.render(
+  <>
+    <PuzzleWalletProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/*' element={<LandingPage />} />
+          <Route path='/voting' element={<VotingPage />} />
+        </Routes>
+      </BrowserRouter>
+    </PuzzleWalletProvider>
+  </>
+);
