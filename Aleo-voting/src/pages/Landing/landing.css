@@ -6,7 +6,6 @@
 
 .logo-image {
     position: absolute;
-    top: 5%;
     left: 10%;
     width: 15%;
     height: 15%;
@@ -45,6 +44,18 @@
     width: 95%;
     height: 45%;
     text-align: left;
+}
+
+.sub-container-one.expanded {
+  top: -15%;
+  font-size: 15px;
+}
+.sub-container-two.expanded {
+  top: 55%;
+}
+
+.description.expanded {
+  font-size: 20px;
 }
 
 .sub-container-one h1{
@@ -110,6 +121,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
     width: 80%;
     height: 80%;
     display: flex;
