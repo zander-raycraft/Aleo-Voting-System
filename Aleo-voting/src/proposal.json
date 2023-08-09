@@ -1,0 +1,15 @@
+{
+    "proposal": {
+      "id": "proposal-123",
+      "description": "A proposal for deciding on what is good for dinner",
+      "private": true,
+      "authorized_addresses": ["0xAddress1", "0xAddress2", "0xAddress3"],
+      "public": true,
+      "voting_type": "time_based",
+      "run_for_duration": "7 days",
+      "close_after_votes": null,
+      "voting_description": "Should we have pizza or breakfast for dinner?",
+      "timestamp": "2023-08-09T12:00:00Z"
+    }
+  }
+  
