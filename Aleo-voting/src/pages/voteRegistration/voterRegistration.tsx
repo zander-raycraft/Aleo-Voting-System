@@ -2,7 +2,7 @@ import React from "react";
 
 const VoterRegistration = () => {
     return(
-        <h1> Voter Registration page </h1>
+        <h1> Voter Registrating page </h1>
     );
 }
 
