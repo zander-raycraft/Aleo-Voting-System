@@ -1,0 +1,4 @@
+// The program input for backend/src/main.leo
+[new]
+public voters_count: u8 = 50;
+public id: field = 1field;
