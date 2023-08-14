@@ -1,5 +1,5 @@
-// The 'puzzlers_voting_aleo' program.
-program puzzlers_voting_aleo_test_001.aleo {
+// The 'backend' program.
+program backend.aleo {
     mapping proposals: field => address;
 
     record Proposal {
