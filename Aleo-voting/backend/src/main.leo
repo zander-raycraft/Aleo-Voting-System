@@ -6,6 +6,8 @@ program backend.aleo {
         owner: address,
         public votes_to_distribute: u8,
         id: field,
+        // last block when it could be voted; if you want unbounded proposal --- just set a high enough number
+        deadline: u32,
         // TODO research if imported types can be used for voting on
         count_y: u8,
         count_n: u8
@@ -18,12 +20,14 @@ program backend.aleo {
     
     transition new(
         public voters_count: u8,
-        public id: field
+        public id: field,
+        public deadline: u32
     ) -> public Proposal {
         return Proposal{
-            owner: self.caller, votes_to_distribute: voters_count, id, count_y: 0u8, count_n: 0u8
-        } then finalize(id, self.caller);
-    } finalize new(public proposal_id: field, public initiator: address) {
+            owner: self.caller, votes_to_distribute: voters_count, id, deadline, count_y: 0u8, count_n: 0u8
+        } then finalize(id, self.caller, deadline);
+    } finalize new(public proposal_id: field, public initiator: address, public deadline: u32) {
+        assert(deadline > block.height);
         assert(!Mapping::contains(proposals, proposal_id));
         Mapping::set(proposals, proposal_id, initiator);
     }
@@ -38,6 +42,7 @@ program backend.aleo {
                 owner: proposal.owner, 
                 votes_to_distribute: proposal.votes_to_distribute - 1u8, 
                 id: proposal.id,
+                deadline: proposal.deadline,
                 count_y: proposal.count_y,
                 count_n: proposal.count_n,
             },
@@ -52,8 +57,11 @@ program backend.aleo {
             owner: proposal.owner, 
             votes_to_distribute: proposal.votes_to_distribute, 
             id: proposal.id, 
+            deadline: proposal.deadline,
             count_y: proposal.count_y + choice_flag, 
             count_n: proposal.count_n + (1u8 - choice_flag)
-        };
+        } then finalize(proposal.deadline);
+    } finalize vote_transition(deadline: u32) {
+        assert(block.height >= deadline);
     }
 }
