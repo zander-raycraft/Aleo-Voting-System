@@ -19,6 +19,7 @@ const VotingPage: FC = () => {
         return (<p>error loading your balance: {error}</p>)
       }
 
+
     return(
         <> 
             <h1 className="address-place"
