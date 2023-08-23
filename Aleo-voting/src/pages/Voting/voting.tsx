@@ -3,14 +3,21 @@ import 'typeface-montserrat';
 import "./voting.css"
 import { useNavigate } from 'react-router-dom'
 import { useAccount } from '@puzzlehq/sdk';
+import { useBalance } from '@puzzlehq/sdk';
 
 
 const VotingPage: FC = () => {
     const { account } = useAccount();
+    const { balance, loading, error } = useBalance();
     const navigate = useNavigate();
     const navigateToPage = (page: string) => {
         navigate(`/${page}`)
     };
+
+    //error handling
+    if (error) {
+        return (<p>error loading your balance: {error}</p>)
+      }
 
     return(
         <> 
@@ -18,7 +25,7 @@ const VotingPage: FC = () => {
                     style={{
                         fontFamily: 'Montserrat, sans-serif'
                     }}
-            > {account ? 'Wallet Address: ' + account.address : 'Wallet not connected'} </h1>
+            > {account ? 'Account Ballance: ' + {balance} : 'Wallet not connected'} </h1>
             <div className="voting-main-container">
                 <img src="townVote.png" alt="town vote" 
                     className="town-vote-icon"/>

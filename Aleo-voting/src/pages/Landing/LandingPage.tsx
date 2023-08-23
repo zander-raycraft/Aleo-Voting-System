@@ -6,7 +6,7 @@ import 'typeface-montserrat';
 import { PuzzleWalletProvider, PuzzleWeb3Modal, useAccount, useConnect } from '@puzzlehq/sdk';
 
 const LandingPage: FC = () => {
-  const { connect } = useConnect();
+  const { connect, loading } = useConnect();
   const { account } = useAccount();
   const [description, setDescription] = useState("Non-hackable voting system on the blockchain, using ZKPs");
   const [learnMore, setLearnMore] = useState("Learn more");
@@ -46,6 +46,7 @@ const LandingPage: FC = () => {
             <div className={`sub-container-two ${expanded ? 'expanded' : ''}`}>
               <Button
                 onClick={handleWalletClick}
+                disabled={loading}
                 style={{
                   position: "relative",
                   width: "45%",
