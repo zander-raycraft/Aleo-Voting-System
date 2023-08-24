@@ -19,13 +19,14 @@ const VotingPage: FC = () => {
         return (<p>error loading your balance: {error}</p>)
       }
 
+
     return(
         <> 
             <h1 className="address-place"
                     style={{
                         fontFamily: 'Montserrat, sans-serif'
                     }}
-            > {account ? 'Account Ballance: ' + {balance} : 'Wallet not connected'} </h1>
+            >  {Number(balance.toFixed(4))} </h1>
             <div className="voting-main-container">
                 <img src="townVote.png" alt="town vote" 
                     className="town-vote-icon"/>
