@@ -1,0 +1,9 @@
+.address-place {
+    position: absolute;
+    color:rgb(107, 87, 255);
+    font-weight: 200;
+    font-size: 18px;
+    left: 55%;
+    z-index: 100;
+    text-align: center;
+}
