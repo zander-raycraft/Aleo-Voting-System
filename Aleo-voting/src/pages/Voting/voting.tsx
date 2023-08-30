@@ -46,6 +46,7 @@ const VotingPage: FC = () => {
 
     }
 
+
     const recordList = records.map(record => {
         return (
               <div key={record.id}>
@@ -66,6 +67,8 @@ const VotingPage: FC = () => {
           );
        });
 
+       console.log(recordList);
+
     return(
         <> 
             <div className="address-place"
@@ -73,13 +76,13 @@ const VotingPage: FC = () => {
                         fontFamily: 'Montserrat, sans-serif'
                     }}
             > 
-            Your records:
+            <p>Your records:</p>
                 { recordList }
             </div>
             <div className="voting-main-container">
                 <img src="townVote.png" alt="town vote" 
                     className="town-vote-icon"/>
-                <h1 className="welcome-message"
+                <h1 className="selcome-message"
                     style={{
                         fontFamily: 'Montserrat, sans-serif'
                     }}
