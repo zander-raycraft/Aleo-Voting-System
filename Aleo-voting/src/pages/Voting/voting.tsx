@@ -31,9 +31,10 @@ const VotingPage: FC = () => {
                 </div>
                 <div className="right-container">
                     <img src="electionPoll.png" alt="voting-area"
-                        onClick={() => navigateToPage('electionBoard')}
                     ></img>
-                    <img src="proposalDetails.png" alt="voting-area"></img>
+                    <img src="proposalDetails.png" alt="voting-area"
+                    onClick={() => navigateToPage('electionBoard')}
+                    ></img>
                 </div>``
             </div>
         </>
