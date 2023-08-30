@@ -1,88 +1,21 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import 'typeface-montserrat';
 import "./voting.css"
 import { useNavigate } from 'react-router-dom'
-import { useRecords } from '@puzzlehq/sdk';
 
 
 const VotingPage: FC = () => {
-
-    type Record = {
-        plaintext: string;
-        id: string;
-        height: number;
-        timestamp: string;
-        record_ciphertext: string;
-        program_id: string;
-        function_name: string;
-        transition_id: string;
-        transaction_id: string;
-        output_index: number;
-        ownerId: string | null;
-        spent: boolean;
-        serialNumber: string | null;
-    };
-    //Voting records
-    const { request, records, error, loading, totalRecordCount } = useRecords({
-        filter: {
-          program_id: 'credits.aleo',
-          type: 'unspent',
-        },
-        page: 2,
-        formatted: true
-    });
     const navigate = useNavigate();
     const navigateToPage = (page: string) => {
         navigate(`/${page}`)
     }
 
-    useEffect(() => {
-        request()
-      }, []);
-
-    //error handling
-    if (!records) {
-        return <div>Your records are fucked dawg</div>
-
-    }
-
-
-    const recordList = records.map(record => {
-        return (
-              <div key={record.id}>
-                <p><strong>Plaintext:</strong> {record.plaintext}</p>
-                <p><strong>ID:</strong> {record.id}</p>
-                <p><strong>Height:</strong> {record.height}</p>
-                <p><strong>Timestamp:</strong> {record.timestamp}</p>
-                <p><strong>Record Ciphertext:</strong> {record.record_ciphertext}</p>
-                <p><strong>Program ID:</strong> {record.program_id}</p>
-                <p><strong>Function Name:</strong> {record.function_name}</p>
-                <p><strong>Transition ID:</strong> {record.transition_id}</p>
-                <p><strong>Transaction ID:</strong> {record.transaction_id}</p>
-                <p><strong>Output Index:</strong> {record.output_index}</p>
-                <p><strong>Owner ID:</strong> {record.ownerId ? record.ownerId : 'N/A'}</p>
-                <p><strong>Spent:</strong> {record.spent ? 'Yes' : 'No'}</p>
-                <p><strong>Serial Number:</strong> {record.serialNumber ? record.serialNumber : 'N/A'}</p>
-              </div>
-          );
-       });
-
-       console.log(recordList);
-
     return(
         <> 
-            <div className="address-place"
-                    style={{
-                        fontFamily: 'Montserrat, sans-serif'
-                    }}
-            > 
-            <p>Your records:</p>
-                { recordList }
-            </div>
             <div className="voting-main-container">
                 <img src="townVote.png" alt="town vote" 
                     className="town-vote-icon"/>
-                <h1 className="selcome-message"
+                <h1 className="welcome-message"
                     style={{
                         fontFamily: 'Montserrat, sans-serif'
                     }}
