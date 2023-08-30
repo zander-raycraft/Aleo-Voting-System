@@ -1,26 +1,42 @@
 import React, { FC, useState, useEffect } from "react";
 import "./electionBoard.css";
-import { useRecords, useDecrypt } from '@puzzlehq/sdk';
+
+import { useRecords, useDecrypt, RecordsFilter } from '@puzzlehq/sdk';
 
 const ElectionBoardPage: FC = () => {
     const [page, setPage] = useState(0);
-    const [filter, setFilter] = useState({
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const [filter, setFilter] = useState<RecordsFilter>({
         program_id: 'puzzlers_voting_aleo_63.aleo',
         type: 'unspent'
     });
 
     const { request, records, totalRecordCount } = useRecords({
         page,
+        filter,
         formatted: true
     });
 
     useEffect(() => {
         request();
-    }, [page, filter]);
+    }, [page, filter, searchQuery]);
 
     if (!records) {
         return <div>Loading your records...</div>
     }
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        setPage(0);
+        setFilter({
+            ...filter,
+            program_id: searchQuery,
+        });
+    };
 
     const parsePlaintext = (plaintext: string): { [key: string]: string } => {
         const cleanedText = plaintext.replace(/[{}]/g, '');
@@ -47,7 +63,7 @@ const ElectionBoardPage: FC = () => {
     };
 
     interface RecordProps {
-        record: any; // Replace 'any' with the actual type of your record
+        record: any;
     }
     
     const Record: FC<RecordProps> = ({ record }) => {
@@ -61,19 +77,10 @@ const ElectionBoardPage: FC = () => {
     
         return (
             <div style={recordStyle}>
-                <p><strong>Decrypt:</strong></p>
-                {transitions && transitions.map((transition, index) => (
-                    <div key={index}>
-                        <p>Transition ID: {transition.transitionId}</p>
-                        <p>Program: {transition.program}</p>
-                        <p><strong>Function:</strong> {transition.function}</p>
-                    </div>
-                ))}
                 <p><strong>Id:</strong> {record.id}</p>
                 <p><strong>Owner:</strong> {newText.owner}</p>
                 <p><strong>Microcredits:</strong> {newText.microcredits}</p>
                 <p><strong>_Nonce:</strong> {newText._nonce}</p>
-                <p><strong>count_y:</strong> {newText.count_y}</p>
             </div>
         );
     };
@@ -85,6 +92,8 @@ const ElectionBoardPage: FC = () => {
     return (
         <div className="address-place">
             <p>You have {totalRecordCount} records - </p>
+            <input className="search-bar" type="text" value={searchQuery} onChange={handleSearchChange} placeholder="Program ID" />
+            <button onClick={handleSearchSubmit}>Search</button>
             <p>Your records:</p>
             {recordList}
         </div>

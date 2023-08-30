@@ -9,3 +9,7 @@
     overflow-y: scroll;
 
 }
+.search-bar {
+    position: relative;
+    width: 90%;
+}
