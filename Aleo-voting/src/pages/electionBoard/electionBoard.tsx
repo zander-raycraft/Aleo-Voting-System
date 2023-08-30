@@ -1,65 +1,93 @@
 import React, { FC, useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import "./electionBoard.css";
-import { useRecords } from '@puzzlehq/sdk';
+import { useRecords, useDecrypt } from '@puzzlehq/sdk';
 
 const ElectionBoardPage: FC = () => {
-    //br info
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [filter, setFilter] = useState({
-        program_id: 'puzzler_voting_aleo_63.aleo',
-        type: 'spent'
+        program_id: 'puzzlers_voting_aleo_63.aleo',
+        type: 'unspent'
     });
 
-    const { request, records, error, loading, totalRecordCount } = useRecords({
+    const { request, records, totalRecordCount } = useRecords({
         page,
         formatted: true
     });
-    
-    useEffect(() => {
-        request()
-    }, [page, filter])
-    
-        //error handling
-        if (!records) {
-            return <div>Error with your records</div>
-    
-        }
-    
-    
-    const recordList = records.map(record => {
-        return (
-                <div key={record.id}>
-                <p><strong>Plaintext:</strong> {record.plaintext}</p>
-                <p><strong>ID:</strong> {record.id}</p>
-                <p><strong>Height:</strong> {record.height}</p>
-                <p><strong>Timestamp:</strong> {record.timestamp}</p>
-                <p><strong>Record Ciphertext:</strong> {record.record_ciphertext}</p>
-                <p><strong>Program ID:</strong> {record.program_id}</p>
-                <p><strong>Function Name:</strong> {record.function_name}</p>
-                <p><strong>Transition ID:</strong> {record.transition_id}</p>
-                <p><strong>Transaction ID:</strong> {record.transaction_id}</p>
-                <p><strong>Output Index:</strong> {record.output_index}</p>
-                <p><strong>Owner ID:</strong> {record.ownerId ? record.ownerId : 'N/A'}</p>
-                <p><strong>Spent:</strong> {record.spent ? 'Yes' : 'No'}</p>
-                <p><strong>Serial Number:</strong> {record.serialNumber ? record.serialNumber : 'N/A'}</p>
-                </div>
-            );
-        });
-        console.log(recordList);
 
-    return(
-        <>
-        <div className="address-place"
-                    style={{
-                        fontFamily: 'Montserrat, sans-serif'
-                    }}
-            > 
+    useEffect(() => {
+        request();
+    }, [page, filter]);
+
+    if (!records) {
+        return <div>Loading your records...</div>
+    }
+
+    const parsePlaintext = (plaintext: string): { [key: string]: string } => {
+        const cleanedText = plaintext.replace(/[{}]/g, '');
+        const properties = cleanedText.match(/[^,]+:[^,]+/g);
+        const parsed: { [key: string]: string } = {};
+        if (properties) {
+            properties.forEach(property => {
+                const [key, value] = property.split(': ');
+                parsed[key.trim()] = value.trim();
+            });
+        }
+        return parsed;
+    };
+
+    const recordStyle = {
+        border: '1px solid black',
+        padding: '10px',
+        margin: '10px',
+        fontFamily: 'Montserrat, sans-serif',
+        backgroundColor: 'darkgrey',
+        color: 'rgb(107, 87, 255)',
+        fontWeight: '200',
+        fontSize: '18px',
+    };
+
+    interface RecordProps {
+        record: any; // Replace 'any' with the actual type of your record
+    }
+    
+    const Record: FC<RecordProps> = ({ record }) => {
+        const { decrypt, transitions } = useDecrypt(record.id);
+        const newText = parsePlaintext(record.plaintext);
+    
+        useEffect(() => {
+            decrypt();
+        }, [decrypt]);
+
+    
+        return (
+            <div style={recordStyle}>
+                <p><strong>Decrypt:</strong></p>
+                {transitions && transitions.map((transition, index) => (
+                    <div key={index}>
+                        <p>Transition ID: {transition.transitionId}</p>
+                        <p>Program: {transition.program}</p>
+                        <p><strong>Function:</strong> {transition.function}</p>
+                    </div>
+                ))}
+                <p><strong>Id:</strong> {record.id}</p>
+                <p><strong>Owner:</strong> {newText.owner}</p>
+                <p><strong>Microcredits:</strong> {newText.microcredits}</p>
+                <p><strong>_Nonce:</strong> {newText._nonce}</p>
+                <p><strong>count_y:</strong> {newText.count_y}</p>
+            </div>
+        );
+    };
+
+    const recordList = records.map(record => <Record key={record.id} record={record} />);
+
+    
+
+    return (
+        <div className="address-place">
             <p>You have {totalRecordCount} records - </p>
             <p>Your records:</p>
-                { recordList }
-            </div>
-        </>
+            {recordList}
+        </div>
     );
 }
 
